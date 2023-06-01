@@ -25,7 +25,7 @@ main :: IO ()
 main = do
   args <- getArgs
   case args of
-    [old_url, new_engine] -> qutesearch old_url new_engine
+    [config, old_url, new_engine] -> qutesearch config old_url new_engine
     _ -> putStrLn "Wrong number of arguments"
 
 
@@ -35,11 +35,11 @@ main = do
 -- c.url.searchengines["gl"] =  "https://www.google.com/search?q={}"
 -- c.url.searchengines["gli"] = "https://www.google.com/search?q={}&tbm=isch"
 -- Without sortBy, both "gl" and "gli" would match and the first one ("gl") would be selected 
--- (with `head`) when calling qutebrowser with urls of type "gli". This causes the next search to carry "&tbm=isch" as part of the search string.
--- Disambiguation has not been tested thoroughly, there could be some other uncaught problematic cases. In regular practice it worked very well.
-qutesearch :: String -> String -> IO ()
-qutesearch old_url new_engine = do
-  file <- readFile "/home/fcortesi/.config/qutebrowser/config.py"
+-- (with `head`) when calling qutesearch with urls of type "gli". This causes the next search to carry "&tbm=isch" as part of the search string.
+-- Disambiguation has not been tested thoroughly, there could be some other uncaught problematic cases. In practice it works.
+qutesearch :: String -> String -> String -> IO ()
+qutesearch config old_url new_engine = do
+  file <- readFile config
   case parseEngines file of
     Left x -> print x
     Right engines -> do
