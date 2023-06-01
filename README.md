@@ -1,4 +1,4 @@
-Note: The following readme is years old and I think, is no longer accurate.
+Note: The following readme is years old and I think, no longer accurate.
 
 1. When the queried url have trailing characters after the search string (search string is what's denoted with {} in config.py), the query can potentially match against more than one single engine declared in config.py.
 2. When the queried url matches more than one search engines, qutesearch will use the first one on the list.
