@@ -36,7 +36,6 @@ qutechange config old_url = do
   case parseEngines file of
     Left x -> print x
     Right engines -> do
-      putStrLn $ "engines: " <> show engines
       let all_engines = mconcat engines
           (_engine, url_start, url_end) = head $ sortBy (\(_, _, a) (_, _, b) -> if length a > length b then LT else GT) (filter (\(engine, url_start, url_end) -> isPrefixOf url_start old_url && isSuffixOf url_end old_url) all_engines)
           url_minus_start = T.replace (T.pack url_start) "" (T.pack old_url)
